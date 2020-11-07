@@ -137,3 +137,4 @@ dmypy.json
 eb-package.zip
 static/
 /profiles_api/migrations/
+/secrets.py

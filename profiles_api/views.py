@@ -1,7 +1,12 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status,viewsets
+from rest_framework.authentication import TokenAuthentication
+
 from profiles_api import serializers
+from profiles_api.models import UserProfile
+from profiles_api import permissions
+
 
 
 class HelloApiView(APIView):
@@ -148,3 +153,14 @@ class HelloViewSet(viewsets.ViewSet):
         :return:
         '''
         return Response({'http_method':'delete'})
+
+class UserProfileViewSet(viewsets.ModelViewSet):
+    '''
+    Handling creat and updation of profile
+    '''
+    serializer_class = serializers.UserProfileSearlizer
+    queryset = UserProfile.objects.all()
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.UpdateOwnProfile,)
+
+
